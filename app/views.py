@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, filters
 from app.models import Pharmacy, Medicine, Order
 from .serializers import PharmacySerializer, MedicineSerializer, OrderSerializer
 from django_filters.rest_framework import DjangoFilterBackend
@@ -17,6 +17,10 @@ class MedicineViewSet(generics.ListCreateAPIView):
 class OrderViewSet(generics.ListCreateAPIView):
     queryset = Order.objects.all().order_by('-created_at')
     serializer_class = OrderSerializer
+
+    filter_backends = [DjangoFilterBackend ,filters.SearchFilter]
+    filterset_fields = ['payment_status', 'medicine']
+    search_fields = ['customer_name', 'phone', 'delivery_address']
 
 
 class OrderRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
