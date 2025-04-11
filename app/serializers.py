@@ -10,7 +10,7 @@ class PharmacySerializer(serializers.ModelSerializer):
 class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medicine
-        fields = '__all__'
+        fields = ['id', 'name', 'price', 'in_stock', 'pharmacy']
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -19,7 +19,17 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = [
+            'id',
+            'customer_name',
+            'phone',
+            'medicine',
+            'medicine_id',
+            'quantity',
+            'delivery_address',
+            'payment_status',
+            'created_at',
+        ]
         read_only = ('id', 'payment_status', 'created_at')
 
     def validate_quantity(self, value):

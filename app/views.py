@@ -17,3 +17,9 @@ class MedicineViewSet(generics.ListCreateAPIView):
 class OrderViewSet(generics.ListCreateAPIView):
     queryset = Order.objects.all().order_by('-created_at')
     serializer_class = OrderSerializer
+
+
+class OrderRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    lookup_field = 'id'
